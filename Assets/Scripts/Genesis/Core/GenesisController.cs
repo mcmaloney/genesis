@@ -68,9 +68,11 @@ namespace Genesis.Core
             WorldScale = MapController.WorldScaleFactor; // One world scale multiplier to rule them all
             Debug.Log("Scale factor: " + WorldScale);
             hasWorld = true;
+
             // These calls to build things should be handled by GeoJSON parsers but just testing now
             genesisFeatureGenerator.buildGeoPoint(OriginPoint, WorldScale);
             genesisFeatureGenerator.buildGeoPolygon(OriginPoint, WorldScale);
+            genesisFeatureGenerator.buildGeoLine(OriginPoint, WorldScale);
         }
 
         private void DestroyWorld()
