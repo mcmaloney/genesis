@@ -52,28 +52,6 @@ public class GeoLine : MonoBehaviour {
         }
     }
 
-    [ContextMenu("Draw Edge")]
-    public void drawEdge()
-    {
-        buildLatLonNodesFromJSON();
-        buildXYNodes();
-        buildScaledNodes(new Vector2d(-8236319.1088126, 4975362.60781144), 0.6541332f);
-
-        Vector2 startNodePosition = scaledNodes[0];
-        Vector2 endNodePosition = scaledNodes[1];
-        Vector2 middleNodePosition = scaledNodes[2];
-        Vector2 finalNodePosition = scaledNodes[3];
-
-        GameObject startNode = createNode(startNodePosition);
-        GameObject endNode = createNode(endNodePosition);
-        GameObject middleNode = createNode(middleNodePosition);
-        GameObject finalNode = createNode(finalNodePosition);
-
-        createEdge(startNode, endNode);
-        createEdge(endNode, middleNode);
-        createEdge(middleNode, finalNode);
-    }
-
     // Node from a scaled node position
     public GameObject createNode(Vector2 position)
     {
