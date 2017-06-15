@@ -18,16 +18,9 @@ namespace Genesis.Generators
 
         public void buildGeoPoint(Vector2d referencePoint, float scaleFactor)
         {
-            // Draw 4 points to check the polygon against
-            Vector2d[] testPoints = new Vector2d[] { new Vector2d(40.747535, -73.988305), new Vector2d(40.746536, -73.985949), new Vector2d(40.74592, -73.986393), new Vector2d(40.746789, -73.988452), new Vector2d(40.747535, -73.988305) };
-            for (int i = 0; i < testPoints.Length; i++)
-            {
-                Vector2d testPointMeters = Conversions.GeoToWorldPosition(testPoints[i].x, testPoints[i].y, new Vector2d(0, 0));
-                Debug.Log("Test Point Location in Meters: (" + testPointMeters.x + "," + testPointMeters.y + ")");
-                Vector3 geoPointLocation = new Vector3((float)(testPointMeters.x - referencePoint.x) * scaleFactor, 0f, (float)(testPointMeters.y - referencePoint.y) * scaleFactor);
-                Debug.Log("Scaled Point Location: " + geoPointLocation);
-                GameObject geoPointObject = Instantiate(geoPointPrefab, geoPointLocation, Quaternion.identity);
-            }
+            GameObject pointObject = Instantiate(geoPointPrefab, new Vector3(0f, -100, 0f), Quaternion.identity);
+            GeoPoint point = pointObject.GetComponent<GeoPoint>();
+            point.Draw(referencePoint, scaleFactor);
         }
 
         // Draw one sample polygon
