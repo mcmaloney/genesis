@@ -28,7 +28,7 @@ namespace Genesis.Core
         [ContextMenu("Test Build World")]
         private void TestBuildWorld()
         {
-            Vector2d origin = new Vector2d(-73.970318, 40.756466);
+            Vector2d origin = new Vector2d(-73.986545, 40.749291);
             Awake();
             BuildWorld(origin);
         }
