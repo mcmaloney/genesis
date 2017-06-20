@@ -10,21 +10,11 @@ namespace Genesis.Generators
 {
     public class FeatureGenerator : MonoBehaviour
     {
-        public float testPointLat;
-        public float testPointLon;
         public GameObject geoPointPrefab;
         public GameObject geoPolygonPrefab;
         public GameObject geoLinePrefab;
         public Vector2d OriginPoint;
         public float WorldScale;
-
-        // Draw one sample line
-        public void buildGeoLine(Vector2d referencePoint, float scaleFactor)
-        {
-            GameObject lineObject = Instantiate(geoLinePrefab, new Vector3(0f, -100f, 0f), Quaternion.identity);
-            GeoLine line = lineObject.GetComponent<GeoLine>();
-            line.Draw(referencePoint, scaleFactor);
-        }
 
         public void drawGeoPoint(Vector2d pointCoordinates)
         {
@@ -41,6 +31,14 @@ namespace Genesis.Generators
             GeoPolygon polygon = polygonObject.GetComponent<GeoPolygon>();
             polygon.Draw(vertices, OriginPoint, WorldScale);
 
+        }
+
+        public void drawGeoLine(Vector2d[] nodes)
+        {
+            GameObject lineObject = Instantiate(geoLinePrefab, new Vector3(0f, -100f, 0f), Quaternion.identity);
+            lineObject.name = "GeoLine: (" + nodes[0] + ")";
+            GeoLine line = lineObject.GetComponent<GeoLine>();
+            line.Draw(nodes, OriginPoint, WorldScale);
         }
     }
 }
