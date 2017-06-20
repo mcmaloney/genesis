@@ -1,0 +1,21 @@
+{
+"type": "FeatureCollection",
+"name": "homicides_midtown",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "INCIDENT_D": "2008\/02\/12", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "ID": 51, "WEAPON": "knife", "LIGHT_DARK": "D", "YEAR": 2008 }, "geometry": { "type": "Point", "coordinates": [ -73.951350199999766, 40.771777600003482 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2005\/04\/24", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "DOMESTIC", "ID": 1652, "WEAPON": "knife", "YEAR": 2005 }, "geometry": { "type": "Point", "coordinates": [ -73.949702999999772, 40.77519300000349 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2005\/05\/26", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "DOMESTIC", "ID": 1732, "WEAPON": "blunt_instrument", "LIGHT_DARK": "D", "YEAR": 2005 }, "geometry": { "type": "Point", "coordinates": [ -73.956595499999779, 40.779925300003491 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2004\/10\/08", "BORONAME": "Queens", "NUM_VICTIM": "1", "PRIMARY_MO": "UNKNOWN", "ID": 1954, "WEAPON": "blunt_instrument", "YEAR": 2004 }, "geometry": { "type": "Point", "coordinates": [ -1.822685371493425, 0.0 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2005\/11\/20", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "DOMESTIC", "ID": 1966, "WEAPON": "knife", "YEAR": 2005 }, "geometry": { "type": "Point", "coordinates": [ -73.94491399999977, 40.777419000003484 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2005\/11\/27", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "BOYFRIEND\/GIRLFRIEND", "ID": 1979, "WEAPON": "knife", "YEAR": 2005 }, "geometry": { "type": "Point", "coordinates": [ -73.950415999999777, 40.777418000003493 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2005\/12\/21", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "ROBBERY\/BURGLARY", "ID": 2016, "WEAPON": "gun", "YEAR": 2005 }, "geometry": { "type": "Point", "coordinates": [ -1.822685371493425, 0.0 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2007\/03\/10", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "DISPUTE", "ID": 2670, "WEAPON": "knife", "LIGHT_DARK": "D", "YEAR": 2007 }, "geometry": { "type": "Point", "coordinates": [ -73.953126399999775, 40.773417200003479 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2007\/10\/30", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "DISPUTE", "ID": 2993, "WEAPON": "blunt_instrument", "LIGHT_DARK": "D", "YEAR": 2007 }, "geometry": { "type": "Point", "coordinates": [ -73.964387499999788, 40.776090600003485 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2007\/12\/23", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "PRIMARY_MO": "DISPUTE", "ID": 3071, "WEAPON": "knife", "LIGHT_DARK": "L", "YEAR": 2007 }, "geometry": { "type": "Point", "coordinates": [ -73.951650999999771, 40.782004000003482 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2009\/10\/03", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "ID": 3643, "WEAPON": "knife", "LIGHT_DARK": "D", "YEAR": 2009 }, "geometry": { "type": "Point", "coordinates": [ -73.956527999999778, 40.770808000003498 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2010\/01\/27", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "ID": 3766, "WEAPON": "gun", "YEAR": 2010 }, "geometry": { "type": "Point", "coordinates": [ -73.963820999999783, 40.774266000003493 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2011\/07\/02", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "ID": 4006, "WEAPON": "knife", "YEAR": 2011 }, "geometry": { "type": "Point", "coordinates": [ -73.958398199999792, 40.779917600003493 ] } },
+{ "type": "Feature", "properties": { "INCIDENT_D": "2011\/02\/12", "BORONAME": "Manhattan", "NUM_VICTIM": "1", "ID": 4079, "WEAPON": "knife", "YEAR": 2011 }, "geometry": { "type": "Point", "coordinates": [ -73.96624949999979, 40.783434500003501 ] } }
+]
+}
