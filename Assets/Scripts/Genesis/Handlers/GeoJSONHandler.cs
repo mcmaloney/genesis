@@ -28,6 +28,9 @@ public class GeoJSONHandler : MonoBehaviour {
         } else if (feature.geometry is GeoJSON.PolygonGeometryObject || feature.geometry is GeoJSON.MultiPolygonGeometryObject)
         {
             generatePolygonObject(feature);
+        } else if (feature.geometry is GeoJSON.LineStringGeometryObject || feature.geometry is GeoJSON.MultiLineStringGeometryObject)
+        {
+            generateLineObject(feature);
         }
     }
 
@@ -50,5 +53,18 @@ public class GeoJSONHandler : MonoBehaviour {
 
         featureGenerator = featureGeneratorObject.GetComponent<FeatureGenerator>();
         featureGenerator.drawGeoPolygon(latLonVertices);
+    }
+
+    public void generateLineObject(GeoJSON.FeatureObject feature)
+    {
+        Vector2d[] latLonNodes = new Vector2d[feature.geometry.AllPositions().Count];
+
+        for (int i = 0; i < feature.geometry.AllPositions().Count; i++)
+        {
+            latLonNodes[i] = new Vector2d(feature.geometry.AllPositions()[i].latitude, feature.geometry.AllPositions()[i].longitude);
+        }
+
+        featureGenerator = featureGeneratorObject.GetComponent<FeatureGenerator>();
+        featureGenerator.drawGeoLine(latLonNodes);
     }
 }
