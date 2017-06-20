@@ -8,8 +8,6 @@ namespace Genesis.GeoPrimitives
 {
     public class GeoLine : MonoBehaviour
     {
-        public TextAsset sampleJson;
-        public JSONObject lineData;
         public Vector2d[] latLonNodes;
         public Vector2d[] xyNodes;
         public Vector2[] scaledNodes;
@@ -17,29 +15,15 @@ namespace Genesis.GeoPrimitives
         public Material defaultMaterial;
         public Mesh cylinderMesh;
 
-        public void buildLatLonNodesFromJSON()
-        {
-            // The parsing of the input JSON should be broken into a new function
-            lineData = new JSONObject(sampleJson.text);
-            latLonNodes = new Vector2d[lineData["geometry"][1].Count];
-
-            for (int i = 0; i < lineData["geometry"][1].Count; i++)
-            {
-                Vector2d node = new Vector2d(lineData["geometry"][1][i][0].n, lineData["geometry"][1][i][1].n);
-                latLonNodes[i] = node;
-                Debug.Log("Lat/Lon node: " + latLonNodes[i]);
-            }
-        }
-
         // Convert lat / lon coordinates to XY meters
         public void buildXYNodes()
         {
             xyNodes = new Vector2d[latLonNodes.Length];
             for (int i = 0; i < latLonNodes.Length; i++)
             {
-                Vector2d xyNode = Conversions.GeoToWorldPosition(latLonNodes[i].y, latLonNodes[i].x, new Vector2d(0, 0));
-                xyNodes[i] = new Vector2d(xyNode.y, xyNode.x);
-                Debug.Log("XY Vertex: " + xyNodes[i]);
+                Vector2d xyNode = Conversions.GeoToWorldPosition(latLonNodes[i].x, latLonNodes[i].y, new Vector2d(0, 0));
+                xyNodes[i] = xyNode;
+                Debug.Log("XY Node: (" + xyNodes[i].x + ", " + xyNodes[i].y + ")");
             }
         }
 
@@ -49,9 +33,9 @@ namespace Genesis.GeoPrimitives
             scaledNodes = new Vector2[xyNodes.Length];
             for (int i = 0; i < xyNodes.Length; i++)
             {
-                Vector2 scaledNode = new Vector2((float)(xyNodes[i].y - referencePoint.x) * scaleFactor, (float)(xyNodes[i].x - referencePoint.y) * scaleFactor);
+                Vector2 scaledNode = new Vector2((float)(xyNodes[i].x - referencePoint.x) * scaleFactor, (float)(xyNodes[i].y - referencePoint.y) * scaleFactor);
                 scaledNodes[i] = scaledNode;
-                Debug.Log("Scaled Vertex: " + scaledNodes[i]);
+                Debug.Log("Scaled Node: (" + scaledNodes[i].x + ", " + scaledNodes[i].y + ")");
             }
         }
 
@@ -96,9 +80,9 @@ namespace Genesis.GeoPrimitives
             edgeRenderer.material = defaultMaterial;
         }
 
-        public void Draw(Vector2d origin, float scale)
+        public void Draw(Vector2d[] nodes, Vector2d origin, float scale)
         {
-            buildLatLonNodesFromJSON();
+            latLonNodes = nodes;
             buildXYNodes();
             buildScaledNodes(origin, scale);
 
