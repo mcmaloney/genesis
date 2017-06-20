@@ -1,0 +1,17 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+	"type":"Feature",
+	"properties":
+	{"name":"Astor Pl","url":"http://web.mta.info/nyct/service/","line":"4-6-6 Express","objectid":"1","notes":"4 nights, 6-all times, 6 Express-weekdays AM southbound, PM northbound"},
+	"geometry":{"type":"Point","coordinates":[-73.99106999861966,40.73005400028978]}
+	},
+	{
+		"type": "Feature",
+		"properties": {"name": "Census Block"},
+		"geometry": {"type":"MultiPolygon", "coordinates":[[[-73.988305,40.747535],[-73.985949,40.746536],[-73.986393,40.745921],[-73.988452,40.746789],[-73.988305,40.747535]]]}
+
+	}
+	]
+}
