@@ -18,14 +18,6 @@ namespace Genesis.Generators
         public Vector2d OriginPoint;
         public float WorldScale;
 
-        // Draw one sample polygon
-        public void buildGeoPolygon(Vector2d referencePoint, float scaleFactor)
-        {
-            GameObject polygonObject = Instantiate(geoPolygonPrefab, new Vector3(0f, -100f, 0f), Quaternion.identity);
-            GeoPolygon polygon = polygonObject.GetComponent<GeoPolygon>();
-            polygon.Draw(referencePoint, scaleFactor);
-        }
-
         // Draw one sample line
         public void buildGeoLine(Vector2d referencePoint, float scaleFactor)
         {
@@ -40,6 +32,15 @@ namespace Genesis.Generators
             pointObject.name = "GeoPoint: (" + pointCoordinates.x + ", " + pointCoordinates.y + ")";
             GeoPoint point = pointObject.GetComponent<GeoPoint>();
             point.Draw(pointCoordinates, OriginPoint, WorldScale);
+        }
+
+        public void drawGeoPolygon(Vector2d[] vertices)
+        {
+            GameObject polygonObject = Instantiate(geoPolygonPrefab, new Vector3(0f, -100f, 0f), Quaternion.identity);
+            polygonObject.name = "Polygon: (" + vertices[0] + ")";
+            GeoPolygon polygon = polygonObject.GetComponent<GeoPolygon>();
+            polygon.Draw(vertices, OriginPoint, WorldScale);
+
         }
     }
 }
