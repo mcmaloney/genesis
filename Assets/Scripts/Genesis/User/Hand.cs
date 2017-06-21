@@ -41,11 +41,6 @@ namespace Genesis.User
                     lineRenderer.SetPosition(0, transform.position);
                     lineRenderer.SetPosition(1, hit.point);
                 }
-
-                if (OVRInput.GetDown(OVRInput.RawButton.B))
-                {
-                    hit.transform.SendMessage("UserRayHit");
-                }
             }
             else
             {
