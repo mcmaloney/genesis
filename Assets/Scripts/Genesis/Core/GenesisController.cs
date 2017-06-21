@@ -28,7 +28,7 @@ namespace Genesis.Core
         [ContextMenu("Test Build World")]
         private void TestBuildWorld()
         {
-            Vector2d origin = new Vector2d(-73.988712, 40.748508);
+            Vector2d origin = new Vector2d(-73.955044, 40.773334);
             Awake();
             BuildWorld(origin);
         }
@@ -62,17 +62,19 @@ namespace Genesis.Core
             genesisFeatureGenerator = GenesisFeatureGenerator.GetComponent<FeatureGenerator>();
             mapboxServerController.BuildTiles(originCoorindates, zoom, range, worldObjectName);
 
-            OriginPoint = mapboxServerController.RootTileOrigin; // One root tile to rule them all
+            // One root tile to rule them all
+            OriginPoint = mapboxServerController.RootTileOrigin; 
             Debug.Log("Origin: " + OriginPoint);
-            
-            WorldScale = MapController.WorldScaleFactor; // One world scale multiplier to rule them all
+
+            // One world scale multiplier to rule them all
+            WorldScale = MapController.WorldScaleFactor; 
             Debug.Log("Scale factor: " + WorldScale);
             hasWorld = true;
 
-            // These calls to build things should be handled by GeoJSON parsers but just testing now
-            genesisFeatureGenerator.buildGeoPoint(OriginPoint, WorldScale);
-            genesisFeatureGenerator.buildGeoPolygon(OriginPoint, WorldScale);
-            genesisFeatureGenerator.buildGeoLine(OriginPoint, WorldScale);
+            // Pass off the global variables for the created world to the FeatureGenerator
+            // Maybe a better way to do this?
+            genesisFeatureGenerator.OriginPoint = OriginPoint;
+            genesisFeatureGenerator.WorldScale = WorldScale;
         }
 
         private void DestroyWorld()

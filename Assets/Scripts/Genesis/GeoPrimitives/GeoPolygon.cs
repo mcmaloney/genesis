@@ -11,8 +11,6 @@ namespace Genesis.GeoPrimitives
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
     public class GeoPolygon : MonoBehaviour
     {
-        public TextAsset sampleJson; // Placeholder asset now until we get API calls working...
-        public JSONObject polygonData;
         public Vector2d[] latLonVertices;
         public Vector2d[] xyVertices;
         public Vector2[] scaledVertices;
@@ -23,31 +21,15 @@ namespace Genesis.GeoPrimitives
         private Mesh mesh;
         private Mesh meshCollider;
 
-
-        // Parse JSON and build an array of the "coordinates" item
-        public void buildLatLonVerticesFromJSON()
-        {
-            // The parsing of the input JSON should be broken into a new function
-            polygonData = new JSONObject(sampleJson.text);
-            latLonVertices = new Vector2d[polygonData["geometry"][1].Count];
-
-            for (int i = 0; i < polygonData["geometry"][1].Count; i++)
-            {
-                Vector2d vertex = new Vector2d(polygonData["geometry"][1][i][0].n, polygonData["geometry"][1][i][1].n);
-                latLonVertices[i] = vertex;
-                Debug.Log("Lat/Lon vertex: " + latLonVertices[i]); 
-            }
-        }
-
         // Convert lat / lon coordinates to XY meters
         public void buildXYVertices()
         {
             xyVertices = new Vector2d[latLonVertices.Length - 1];
             for (int i = 0; i < latLonVertices.Length - 1; i++)
             {
-                Vector2d xyVertex = Conversions.GeoToWorldPosition(latLonVertices[i].y, latLonVertices[i].x, new Vector2d(0, 0));
-                xyVertices[i] = new Vector2d(xyVertex.y, xyVertex.x);
-                Debug.Log("XY Vertex: " + xyVertices[i]);
+                Vector2d xyVertex = Conversions.GeoToWorldPosition(latLonVertices[i].x, latLonVertices[i].y, new Vector2d(0, 0));
+                xyVertices[i] = new Vector2d(xyVertex.x, xyVertex.y);
+                Debug.Log("XY Vertex: (" + xyVertices[i].x + ", " + xyVertices[i].y + ")");
             }
         }
 
@@ -57,20 +39,20 @@ namespace Genesis.GeoPrimitives
             scaledVertices = new Vector2[xyVertices.Length];
             for (int i = 0; i < xyVertices.Length; i++)
             {
-                Vector2 scaledVertex = new Vector2((float)(xyVertices[i].y - referencePoint.x) * scaleFactor, (float)(xyVertices[i].x - referencePoint.y) * scaleFactor);
+                Vector2 scaledVertex = new Vector2((float)(xyVertices[i].x - referencePoint.x) * scaleFactor, (float)(xyVertices[i].y - referencePoint.y) * scaleFactor);
                 scaledVertices[i] = scaledVertex;
-                Debug.Log("Scaled Vertex: " + scaledVertices[i]);
+                Debug.Log("Scaled Vertex: (" + scaledVertices[i].x + ", " + scaledVertices[i].y + ")");
             }
         }
 
         // Build triangles, normals, mesh. Render the polygon with a mesh
-        public void Draw(Vector2d origin, float scale)
+        public void Draw(Vector2d[] vertices, Vector2d origin, float scale)
         {
             meshFilter = gameObject.GetComponent<MeshFilter>();
             meshRenderer = GetComponent<MeshRenderer>();
             meshCollider = GetComponent<MeshCollider>().sharedMesh;
 
-            buildLatLonVerticesFromJSON();
+            latLonVertices = vertices;
             buildXYVertices();
             buildScaledVertices(origin, scale);
 
