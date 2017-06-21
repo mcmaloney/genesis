@@ -28,7 +28,7 @@ namespace Genesis.Core
         [ContextMenu("Test Build World")]
         private void TestBuildWorld()
         {
-            Vector2d origin = new Vector2d(-73.986545, 40.749291);
+            Vector2d origin = new Vector2d(-73.955044, 40.773334);
             Awake();
             BuildWorld(origin);
         }
@@ -75,10 +75,6 @@ namespace Genesis.Core
             // Maybe a better way to do this?
             genesisFeatureGenerator.OriginPoint = OriginPoint;
             genesisFeatureGenerator.WorldScale = WorldScale;
-
-            // These calls to build things should be handled by GeoJSON parsers but just testing now
-            //genesisFeatureGenerator.buildGeoPolygon(OriginPoint, WorldScale);
-            //genesisFeatureGenerator.buildGeoLine(OriginPoint, WorldScale);
         }
 
         private void DestroyWorld()
