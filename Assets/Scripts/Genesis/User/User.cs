@@ -8,8 +8,16 @@ namespace Genesis.User
     public class User : MonoBehaviour
     {
         public GameObject genesisUIObject;
+        public Vector3 UIOffset;
         public Hand rightHand; // Movement
         public Hand leftHand; // Tools
+
+        private UIController genesisUIController;
+
+        public void Start()
+        {
+            genesisUIController = genesisUIObject.GetComponent<UIController>();
+        }
 
         public void Update()
         {
@@ -22,12 +30,12 @@ namespace Genesis.User
 
         private void toggleUI()
         {
-            if (genesisUIObject.active)
+            if (!genesisUIObject.activeSelf)
             {
-                genesisUIObject.SetActive(false);
+                genesisUIController.SetInitialState(transform.position + UIOffset);
             } else
             {
-                genesisUIObject.SetActive(true);
+                genesisUIController.Close();
             }
         }
     }

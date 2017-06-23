@@ -9,7 +9,10 @@ namespace Genesis.User
     {
         public OVRInput.Controller Controller;
         public LineRenderer lineRenderer;
+        public enum HoverState { HOVER, NONE };
+        public HoverState _hoverState = HoverState.NONE;
 
+        private GameObject hoverFocusObject;
         private Vector3[] lineRendererInitPoints;
 
         void Start()
@@ -41,6 +44,8 @@ namespace Genesis.User
                     lineRenderer.SetPosition(0, transform.position);
                     lineRenderer.SetPosition(1, hit.point);
                 }
+                Hover(hit.transform.gameObject);
+                Click(hoverFocusObject);
             }
             else
             {
@@ -48,7 +53,42 @@ namespace Genesis.User
                 {
                     lineRenderer.SetPositions(lineRendererInitPoints);
                 }
+
+                HoverEnd();
             }
         }
+
+        public void Hover(GameObject focusObject)
+        {
+            if (_hoverState == HoverState.NONE)
+            {
+                hoverFocusObject = focusObject;
+                hoverFocusObject.SendMessage("OnMouseOver", SendMessageOptions.DontRequireReceiver);
+            }
+
+            _hoverState = HoverState.HOVER;
+        }
+
+        public void HoverEnd()
+        {
+            if (_hoverState == HoverState.HOVER)
+            {
+                hoverFocusObject.SendMessage("OnMouseExit", SendMessageOptions.DontRequireReceiver);
+            }
+
+            _hoverState = HoverState.NONE;
+        }
+
+        public void Click(GameObject focusObject)
+        {
+            if (_hoverState == HoverState.HOVER)
+            {
+                if (OVRInput.GetDown(OVRInput.RawButton.B))
+                {
+                    focusObject.SendMessage("OnBClick", SendMessageOptions.DontRequireReceiver);
+                }
+            }
+        }
+
     }
 }
