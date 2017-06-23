@@ -10,6 +10,12 @@ namespace Genesis.Core
         public string worldName;
         public Vector2d originCoordinates;
         public float worldScale;
+        public Vector3 startPosition;
+
+        public void Start()
+        {
+            transform.position = startPosition;
+        }
     }
 }
 
