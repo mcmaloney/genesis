@@ -8,10 +8,16 @@ namespace Genesis.UI
     {
         public string destinationName;
 
-        public void UserRayHit()
+        public void OnMouseOver()
+        {
+            Debug.Log("Hovering search destination " + destinationName);
+        }
+
+        public void OnBClick()
         {
             // tell the search map to geocode this location's name
             SearchMap parentMap = transform.parent.gameObject.GetComponent<SearchMap>();
+            Debug.Log("Telling search map to geocode "  + destinationName);
             parentMap.Geocode(destinationName);
         }
     }
