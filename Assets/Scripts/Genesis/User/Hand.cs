@@ -30,7 +30,11 @@ namespace Genesis.User
         {
             transform.localPosition = OVRInput.GetLocalControllerPosition(Controller);
             transform.localRotation = OVRInput.GetLocalControllerRotation(Controller);
-            raycast();
+
+            if (Controller == OVRInput.Controller.RTouch)
+            {
+                raycast();
+            }   
         }
 
         private void raycast() 
