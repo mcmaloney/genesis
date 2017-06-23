@@ -17,6 +17,7 @@ namespace Genesis.UI
         {
             _renderer = GetComponent<MeshRenderer>();
             _renderer.material = defaultMaterial;
+            labelText.GetComponent<TextMesh>().text = labelTextValue;
         }
 
         public void OnMouseOver()

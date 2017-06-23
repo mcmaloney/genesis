@@ -17,8 +17,8 @@ namespace Genesis.UI
             listItemObject.transform.parent = transform;
             listItemObject.transform.localScale = new Vector3(0.25f, 1f, 0.06f);
             listItemObject.transform.localPosition = new Vector3(0, listItemVerticalMargin - listItemStackHeight, 0f);
-            listItemStackHeight += 0.75f;
             listItemObject.GetComponent<ListItem>().labelTextValue = labelValue;
+            listItemStackHeight += 0.75f;
         }
     }
 }
