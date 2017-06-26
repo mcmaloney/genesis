@@ -11,6 +11,8 @@ namespace Genesis.User
         public LineRenderer lineRenderer;
         public enum HoverState { HOVER, NONE };
         public HoverState _hoverState = HoverState.NONE;
+        public Vector3 stickInput;
+        public Quaternion controllerRotation;
         public Vector3 movementTrajectory;
 
         private GameObject hoverFocusObject;
@@ -32,18 +34,15 @@ namespace Genesis.User
             transform.localPosition = OVRInput.GetLocalControllerPosition(Controller);
             transform.localRotation = OVRInput.GetLocalControllerRotation(Controller);
 
+            
+
             if (Controller == OVRInput.Controller.RTouch)
             {
                 raycast();
-                movementVector();
-
+                stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
+                controllerRotation = OVRInput.GetLocalControllerRotation(Controller);
+                movementTrajectory = transform.forward;
             }
-
-        }
-
-        private void movementVector()
-        {
-            movementTrajectory = transform.forward;
         }
 
         private void raycast() 

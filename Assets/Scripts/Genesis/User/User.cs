@@ -27,7 +27,6 @@ namespace Genesis.User
                 toggleUI();
             }
             Move();
-            
         }
 
         private void toggleUI()
@@ -43,8 +42,7 @@ namespace Genesis.User
 
         private void Move()
         {
-            Vector2 stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
-            transform.position += rightHand.movementTrajectory * stickInput.y * movementSpeed;
+            transform.position += rightHand.movementTrajectory * rightHand.stickInput.y * movementSpeed;
         }
     }
 }
