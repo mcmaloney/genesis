@@ -40,7 +40,7 @@ namespace Genesis.UI
             WorldsSearchMap.SetActive(false);
         }
 
-        // Default to WorldsMenu for now, but should include menu option as a parameter here
+        // Default to WorldsMenu for now, but should include menu option as a parameter here (GameObject argument)
         public void CreateListItem(string listItemText)
         {
             Debug.Log("Creating list item " + listItemText);

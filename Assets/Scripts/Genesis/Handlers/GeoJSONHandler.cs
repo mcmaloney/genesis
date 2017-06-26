@@ -20,6 +20,15 @@ public class GeoJSONHandler : MonoBehaviour {
         }
     }
 
+    public void parseGeoJson(TextAsset geoJSON)
+    {
+        featureCollection = GeoJSON.GeoJSONObject.ParseAsCollection(geoJSON.text);
+        for (int i = 0; i < featureCollection.features.Count; i++)
+        {
+            handleFeatureObject(featureCollection.features[i]);
+        }
+    }
+
     public void handleFeatureObject(GeoJSON.FeatureObject feature)
     {
         if (feature.geometry is GeoJSON.PointGeometryObject)
