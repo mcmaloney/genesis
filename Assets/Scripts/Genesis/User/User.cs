@@ -11,6 +11,7 @@ namespace Genesis.User
         public Vector3 UIOffset;
         public Hand rightHand; // Movement
         public Hand leftHand; // Tools
+        public float movementSpeed;
 
         private UIController genesisUIController;
 
@@ -24,7 +25,8 @@ namespace Genesis.User
             if (OVRInput.GetDown(OVRInput.RawButton.Y))
             {
                 toggleUI();
-            }  
+            }
+            Move();
             
         }
 
@@ -37,6 +39,12 @@ namespace Genesis.User
             {
                 genesisUIController.Close();
             }
+        }
+
+        private void Move()
+        {
+            Vector2 stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
+            transform.position += rightHand.movementTrajectory * stickInput.y * movementSpeed;
         }
     }
 }

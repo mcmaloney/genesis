@@ -11,6 +11,7 @@ namespace Genesis.User
         public LineRenderer lineRenderer;
         public enum HoverState { HOVER, NONE };
         public HoverState _hoverState = HoverState.NONE;
+        public Vector3 movementTrajectory;
 
         private GameObject hoverFocusObject;
         private Vector3[] lineRendererInitPoints;
@@ -34,7 +35,15 @@ namespace Genesis.User
             if (Controller == OVRInput.Controller.RTouch)
             {
                 raycast();
-            }   
+                movementVector();
+
+            }
+
+        }
+
+        private void movementVector()
+        {
+            movementTrajectory = transform.forward;
         }
 
         private void raycast() 
