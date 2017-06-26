@@ -34,8 +34,6 @@ namespace Genesis.User
             transform.localPosition = OVRInput.GetLocalControllerPosition(Controller);
             transform.localRotation = OVRInput.GetLocalControllerRotation(Controller);
 
-            
-
             if (Controller == OVRInput.Controller.RTouch)
             {
                 raycast();
@@ -43,6 +41,8 @@ namespace Genesis.User
                 controllerRotation = OVRInput.GetLocalControllerRotation(Controller);
                 movementTrajectory = transform.forward;
             }
+
+            Squeeze();
         }
 
         private void raycast() 
@@ -99,6 +99,17 @@ namespace Genesis.User
                 {
                     focusObject.SendMessage("OnBClick", SendMessageOptions.DontRequireReceiver);
                 }
+            }
+        }
+
+        public bool Squeeze()
+        {
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, Controller) > 0 && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, Controller) > 0)
+            {
+                return true;
+            } else
+            {
+                return false;
             }
         }
 
