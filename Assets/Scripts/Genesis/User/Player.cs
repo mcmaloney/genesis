@@ -5,7 +5,7 @@ using Genesis.UI;
 
 namespace Genesis.User
 {
-    public class User : MonoBehaviour
+    public class Player : MonoBehaviour
     {
         public GameObject genesisUIObject;
         public Vector3 UIOffset;
@@ -26,7 +26,9 @@ namespace Genesis.User
             {
                 toggleUI();
             }
+
             Move();
+            Zoom();
         }
 
         private void toggleUI()
@@ -43,6 +45,17 @@ namespace Genesis.User
         private void Move()
         {
             transform.position += rightHand.movementTrajectory * rightHand.stickInput.y * movementSpeed;
+        }
+
+        public float Zoom()
+        {
+            if (rightHand.Squeeze() && leftHand.Squeeze())
+            {
+                return rightHand.transform.position.x - leftHand.transform.position.x;
+            } else
+            {
+                return 0f;
+            }
         }
     }
 }
