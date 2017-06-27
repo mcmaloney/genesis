@@ -9,7 +9,13 @@ namespace Genesis.User
     {
         public OVRInput.Controller Controller;
         public LineRenderer lineRenderer;
+        public enum HoverState { HOVER, NONE };
+        public HoverState _hoverState = HoverState.NONE;
+        public Vector3 stickInput;
+        public Quaternion controllerRotation;
+        public Vector3 movementTrajectory;
 
+        private GameObject hoverFocusObject;
         private Vector3[] lineRendererInitPoints;
 
         void Start()
@@ -27,7 +33,16 @@ namespace Genesis.User
         {
             transform.localPosition = OVRInput.GetLocalControllerPosition(Controller);
             transform.localRotation = OVRInput.GetLocalControllerRotation(Controller);
-            raycast();
+
+            if (Controller == OVRInput.Controller.RTouch)
+            {
+                raycast();
+                stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
+                controllerRotation = OVRInput.GetLocalControllerRotation(Controller);
+                movementTrajectory = transform.forward;
+            }
+
+            Squeeze();
         }
 
         private void raycast() 
@@ -41,11 +56,8 @@ namespace Genesis.User
                     lineRenderer.SetPosition(0, transform.position);
                     lineRenderer.SetPosition(1, hit.point);
                 }
-
-                if (OVRInput.GetDown(OVRInput.RawButton.B))
-                {
-                    hit.transform.SendMessage("UserRayHit");
-                }
+                Hover(hit.transform.gameObject);
+                Click(hoverFocusObject);
             }
             else
             {
@@ -53,7 +65,53 @@ namespace Genesis.User
                 {
                     lineRenderer.SetPositions(lineRendererInitPoints);
                 }
+
+                HoverEnd();
             }
         }
+
+        public void Hover(GameObject focusObject)
+        {
+            if (_hoverState == HoverState.NONE)
+            {
+                hoverFocusObject = focusObject;
+                hoverFocusObject.SendMessage("OnMouseOver", SendMessageOptions.DontRequireReceiver);
+            }
+
+            _hoverState = HoverState.HOVER;
+        }
+
+        public void HoverEnd()
+        {
+            if (_hoverState == HoverState.HOVER)
+            {
+                hoverFocusObject.SendMessage("OnMouseExit", SendMessageOptions.DontRequireReceiver);
+            }
+
+            _hoverState = HoverState.NONE;
+        }
+
+        public void Click(GameObject focusObject)
+        {
+            if (_hoverState == HoverState.HOVER)
+            {
+                if (OVRInput.GetDown(OVRInput.RawButton.B))
+                {
+                    focusObject.SendMessage("OnBClick", SendMessageOptions.DontRequireReceiver);
+                }
+            }
+        }
+
+        public bool Squeeze()
+        {
+            if (OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, Controller) > 0 && OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, Controller) > 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
     }
 }

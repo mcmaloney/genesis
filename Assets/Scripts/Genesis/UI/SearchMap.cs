@@ -12,6 +12,7 @@ namespace Genesis.UI
     {
         public event EventHandler<EventArgs> OnGeocoderResponse;
         public ForwardGeocodeResponse Response { get; private set; }
+        public string geocodedLocationName;
 
         ForwardGeocodeResource _resource;
 
@@ -41,9 +42,11 @@ namespace Genesis.UI
         // Child SearchDestination object calls parent map to Geocode
         public void Geocode(string locationName)
         {
+            Debug.Log("Search map geocoding " + locationName);
             _hasResponse = false;
             _resource = new ForwardGeocodeResource("");
             _resource.Query = locationName;
+            geocodedLocationName = locationName;
             MapboxAccess.Instance.Geocoder.Geocode(_resource, HandleGeocoderResponse);
         }
 
@@ -51,6 +54,7 @@ namespace Genesis.UI
         {
             _hasResponse = true;
             _coordinate = res.Features[0].Center;
+            Debug.Log("Geocoded results for " + geocodedLocationName + ": " + _coordinate);
             Response = res;
             if (OnGeocoderResponse != null)
             {

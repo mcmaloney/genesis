@@ -42,14 +42,6 @@ namespace Genesis.GeoPrimitives
             GameObject markerInstance = Instantiate(markerObject, new Vector3(scaledPoint.x, gameObject.transform.position.y, scaledPoint.y), Quaternion.identity);
             markerInstance.transform.parent = gameObject.transform;
         }
-
-        private void Update()
-        {
-            if (rotate)
-            {
-                markerInstance.transform.Rotate(0, Time.deltaTime * 3f, 0);
-            }
-        }
     }
 }
 

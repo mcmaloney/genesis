@@ -34,46 +34,24 @@ namespace Mapbox.Unity.MeshGeneration
         /// <summary>
         /// Pulls the root world object to origin for ease of use/view
         /// </summary>
-        public void Update()
-        {
-            if (_snapYToZero)
-            {
-                var ray = new Ray(new Vector3(0, 1000, 0), Vector3.down);
-                RaycastHit rayhit;
-                if (Physics.Raycast(ray, out rayhit))
-                {
-                    _root.transform.position = new Vector3(0, -rayhit.point.y, 0);
-                    _snapYToZero = false;
-                }
-            }
-        }
+        //public void Update()
+        //{
+        //    if (_snapYToZero)
+        //    {
+        //        var ray = new Ray(new Vector3(0, 1000, 0), Vector3.down);
+        //        RaycastHit rayhit;
+        //        if (Physics.Raycast(ray, out rayhit))
+        //        {
+        //            _root.transform.position = new Vector3(0, -rayhit.point.y, 0);
+        //            _snapYToZero = false;
+        //        }
+        //    }
+        //}
 
-        private void buildRoot(string objectName)
-        {
-            //frame goes left-top-right-bottom here
-            if (_root != null)
-            {
-                foreach (Transform t in _root.transform)
-                {
-                    Destroy(t.gameObject);
-                }
-            }
-
-            _root = new GameObject(objectName);
-            _root.transform.position = new Vector3(0, -100f, 0);
-        }
-
-        /// <summary>
-        /// World creation call used in the demos. Destroys and existing worlds and recreates another one. 
-        /// </summary>
-        /// <param name="coordinates">Lat / lon vector</param>
-        /// <param name="zoom">Zoom/Detail level of the world</param>
-        /// <param name="frame">Tiles to load around central tile in each direction; west-north-east-south</param>
-        public void BuildTiles(Vector2d coordinates, int zoom, Vector4 frame, string rootObjectName)
+        public void BuildTiles(Vector2d coordinates, int zoom, Vector4 frame, GameObject rootObject)
         {
             MapVisualization.Initialize(MapboxAccess.Instance);
             _tiles = new Dictionary<Vector2, UnityTile>();
-            buildRoot(rootObjectName);
 
             var v2 = Conversions.GeoToWorldPosition(coordinates.y, coordinates.x, new Vector2d(0, 0));
             Debug.Log("User GeoToWorldPosition x: " + v2.x + " User GeoToWorldPosition y: " + v2.y);
@@ -90,7 +68,7 @@ namespace Mapbox.Unity.MeshGeneration
             WorldScaleFactor = (float)(TileSize / ReferenceTileRect.Size.x);
             Debug.Log("WorldScaleFactor: " + WorldScaleFactor);
 
-            _root.transform.localScale = Vector3.one * WorldScaleFactor;
+            rootObject.transform.localScale = Vector3.one * WorldScaleFactor;
 
             for (int i = (int)(tms.x - frame.x); i <= (tms.x + frame.z); i++)
             {
@@ -103,7 +81,7 @@ namespace Mapbox.Unity.MeshGeneration
                     tile.TileCoordinate = new Vector2(i, j);
                     tile.Rect = Conversions.TileBounds(tile.TileCoordinate, zoom);
                     tile.transform.position = new Vector3((float)(tile.Rect.Center.x - ReferenceTileRect.Center.x), 0, (float)(tile.Rect.Center.y - ReferenceTileRect.Center.y));
-                    tile.transform.SetParent(_root.transform, false);
+                    tile.transform.SetParent(rootObject.transform, false);
                     MapVisualization.ShowTile(tile);
                 }
             }
