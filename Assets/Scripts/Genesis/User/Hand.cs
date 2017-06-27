@@ -26,7 +26,6 @@ namespace Genesis.User
                 lineRenderer.SetPositions(lineRendererInitPoints);
                 lineRenderer.SetWidth(0.01f, 0.01f);
             }
-            
         }
 
         void Update()
@@ -34,9 +33,10 @@ namespace Genesis.User
             transform.localPosition = OVRInput.GetLocalControllerPosition(Controller);
             transform.localRotation = OVRInput.GetLocalControllerRotation(Controller);
 
+            // These sensor readins should broadcast more elegantly
             if (Controller == OVRInput.Controller.RTouch)
             {
-                raycast();
+                Raycast();
                 stickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
                 controllerRotation = OVRInput.GetLocalControllerRotation(Controller);
                 movementTrajectory = transform.forward;
@@ -45,7 +45,7 @@ namespace Genesis.User
             Squeeze();
         }
 
-        private void raycast() 
+        private void Raycast() 
         {
             RaycastHit hit;
 
