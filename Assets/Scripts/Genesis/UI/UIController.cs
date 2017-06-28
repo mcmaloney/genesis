@@ -26,7 +26,7 @@ namespace Genesis.UI
             if (searchMap.HasResponse)
             {
                 Debug.Log("Response from Search Map for " + searchMap.geocodedLocationName + ", " + searchMap.Coordinate);
-                genesisController.RequestWorld(searchMap.geocodedLocationName, searchMap.Coordinate);
+                genesisController.BuildWorld(searchMap.geocodedLocationName, searchMap.Coordinate);
                 searchMap.HasResponse = false;
             }
         }

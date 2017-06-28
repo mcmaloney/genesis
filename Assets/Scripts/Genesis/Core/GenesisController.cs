@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mapbox.Unity.MeshGeneration;
 using Mapbox.Utils;
-using Genesis.Generators;
 using Genesis.User;
 using Genesis.UI;
 
@@ -11,8 +10,6 @@ namespace Genesis.Core
 {
     public class GenesisController : MonoBehaviour
     {
-        public GameObject MapBoxServer;
-        public GameObject GenesisFeatureGenerator;
         public GameObject GenesisPlayer;
         public GameObject GenesisUI;
         public GameObject WorldPrefab;
@@ -23,10 +20,8 @@ namespace Genesis.Core
         public Vector4 range;
         
         
-        private MapController mapboxServerController;
-        private FeatureGenerator genesisFeatureGenerator;
-        private Player genesisPlayer;
-        private UIController uiController;
+        private Player _GenesisPlayer;
+        private UIController _UIController;
         private GameObject currentWorld; // This needs to be switchable by the user
 
         [ContextMenu("Test Build World")]
@@ -34,15 +29,13 @@ namespace Genesis.Core
         {
             Vector2d origin = new Vector2d(40.748289, -73.988226);
             Awake();
-            RequestWorld("TestWorld", origin);
+            BuildWorld("TestWorld", origin);
         }
 
         private void Awake()
         {
-            mapboxServerController = MapBoxServer.GetComponent<MapController>();
-            genesisFeatureGenerator = GenesisFeatureGenerator.GetComponent<FeatureGenerator>();
-            genesisPlayer = GenesisPlayer.GetComponent<Player>();
-            uiController = GenesisUI.GetComponent<UIController>();
+            _GenesisPlayer = GenesisPlayer.GetComponent<Player>();
+            _UIController = GenesisUI.GetComponent<UIController>();
         }
 
         public void Update()
@@ -50,28 +43,18 @@ namespace Genesis.Core
             if (currentWorld)
             {
                 World _currentWorld = currentWorld.GetComponent<World>();
-                _currentWorld.userZoomInput = genesisPlayer.Zoom();
+                _currentWorld.userZoomInput = _GenesisPlayer.Zoom();
             }
         }
 
-        public void RequestWorld(string worldName, Vector2d originCoordinates)
+        public void BuildWorld(string worldName, Vector2d originCoordinates)
         {
             Debug.Log("Building world " + worldName + " at " + originCoordinates);
             GameObject newWorld = Instantiate(WorldPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
             currentWorld = newWorld;
             World _newWorld = newWorld.GetComponent<World>();
-            _newWorld.worldName = worldName;
-            uiController.CreateListItem(worldName);
-            BuildWorld(newWorld, originCoordinates);
-        }
-
-        public void BuildWorld(GameObject rootLayer, Vector2d originCoordinates)
-        {
-            mapboxServerController.BuildTiles(new Vector2d(originCoordinates.y, originCoordinates.x), zoom, range, rootLayer);
-            OriginPoint = mapboxServerController.RootTileOrigin;
-            WorldScale = MapController.WorldScaleFactor;
-            genesisFeatureGenerator.OriginPoint = OriginPoint;
-            genesisFeatureGenerator.WorldScale = WorldScale;
+            _newWorld.Build(new Vector2d(originCoordinates.y, originCoordinates.x), zoom, range, worldName);
+            _UIController.CreateListItem(worldName);
         }
 
         private void DestroyWorld(GameObject world)

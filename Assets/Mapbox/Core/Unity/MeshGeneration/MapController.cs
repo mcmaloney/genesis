@@ -7,6 +7,7 @@ namespace Mapbox.Unity.MeshGeneration
     using Mapbox.Platform;
     using Mapbox.Unity.Utilities;
     using Utils;
+    using Genesis.Core;
 
     /// <summary>
     /// MapController is just an helper class imitating the game/app logic controlling the map. It creates and passes the tiles requests to MapVisualization.
@@ -80,11 +81,14 @@ namespace Mapbox.Unity.MeshGeneration
                     tile.RelativeScale = Conversions.GetTileScaleInMeters(0, Zoom) / Conversions.GetTileScaleInMeters((float)coordinates.y, Zoom);
                     tile.TileCoordinate = new Vector2(i, j);
                     tile.Rect = Conversions.TileBounds(tile.TileCoordinate, zoom);
+                    Debug.Log("Tile Bounds: (" + tile.Rect.Min + ", " + tile.Rect.Max);
                     tile.transform.position = new Vector3((float)(tile.Rect.Center.x - ReferenceTileRect.Center.x), 0, (float)(tile.Rect.Center.y - ReferenceTileRect.Center.y));
                     tile.transform.SetParent(rootObject.transform, false);
                     MapVisualization.ShowTile(tile);
                 }
             }
+
+            rootObject.GetComponent<World>().tiles = _tiles;
         }
 
         /// <summary>
