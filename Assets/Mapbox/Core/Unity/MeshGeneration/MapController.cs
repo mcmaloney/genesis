@@ -87,8 +87,6 @@ namespace Mapbox.Unity.MeshGeneration
                     MapVisualization.ShowTile(tile);
                 }
             }
-
-            rootObject.GetComponent<World>().tiles = _tiles;
         }
 
         /// <summary>
