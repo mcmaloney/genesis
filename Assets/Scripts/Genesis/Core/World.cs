@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mapbox.Unity.MeshGeneration.Data;
 using Mapbox.Utils;
+using Genesis.Data;
 
 namespace Genesis.Core
 {
@@ -11,6 +13,7 @@ namespace Genesis.Core
         public Vector2d originCoordinates;
         public float worldScale;
         public Vector3 startPosition;
+        public Dictionary<Vector2, UnityTile> tiles;
         public float userZoomInput;
 
         private float lastScale;
