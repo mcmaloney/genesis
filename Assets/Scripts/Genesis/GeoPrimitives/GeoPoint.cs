@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
+using Genesis.Core;
 
 namespace Genesis.GeoPrimitives
 {
@@ -32,13 +33,14 @@ namespace Genesis.GeoPrimitives
 
         // This primitive is interesting because it is the only one of the three that needs to call Instantiate() on its child (visible) object
         // This is because points will have physical objects attached to them always, whereas lines and polygons are typically procedurally drawn meshes
-        public void Draw(Vector2d coordinates, Vector2d origin, float scale)
+        public void Draw(Vector2d coordinates, GameObject world)
         {
-            Debug.Log("Origin: " + origin);
-            Debug.Log("Scale: " + scale);
+            transform.parent = world.transform;
+            World _world = world.GetComponent<World>();
+
             latLonPoint = coordinates;
             buildXYPoint();
-            buildScaledPoint(origin, scale);
+            buildScaledPoint(_world.RootTileOrigin, _world.WorldScaleFactor);
             GameObject markerInstance = Instantiate(markerObject, new Vector3(scaledPoint.x, gameObject.transform.position.y, scaledPoint.y), Quaternion.identity);
             markerInstance.transform.parent = gameObject.transform;
         }

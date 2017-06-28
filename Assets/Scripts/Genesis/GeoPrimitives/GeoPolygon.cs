@@ -4,6 +4,7 @@ using UnityEngine;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
 using Genesis.Utils;
+using Genesis.Core;
 
 
 namespace Genesis.GeoPrimitives
@@ -46,15 +47,18 @@ namespace Genesis.GeoPrimitives
         }
 
         // Build triangles, normals, mesh. Render the polygon with a mesh
-        public void Draw(Vector2d[] vertices, Vector2d origin, float scale)
+        public void Draw(Vector2d[] vertices, GameObject world)
         {
+            transform.parent = world.transform;
+            World _world = world.GetComponent<World>();
+
             meshFilter = gameObject.GetComponent<MeshFilter>();
             meshRenderer = GetComponent<MeshRenderer>();
             meshCollider = GetComponent<MeshCollider>().sharedMesh;
 
             latLonVertices = vertices;
             buildXYVertices();
-            buildScaledVertices(origin, scale);
+            buildScaledVertices(_world.RootTileOrigin, _world.WorldScaleFactor);
 
             Triangulator tr = new Triangulator(scaledVertices);
             int[] indices = tr.Triangulate();

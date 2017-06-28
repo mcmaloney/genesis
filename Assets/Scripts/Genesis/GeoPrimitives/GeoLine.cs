@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mapbox.Unity.Utilities;
 using Mapbox.Utils;
+using Genesis.Core;
 
 namespace Genesis.GeoPrimitives
 {
@@ -80,11 +81,14 @@ namespace Genesis.GeoPrimitives
             edgeRenderer.material = defaultMaterial;
         }
 
-        public void Draw(Vector2d[] nodes, Vector2d origin, float scale)
+        public void Draw(Vector2d[] nodes, GameObject world)
         {
+            transform.parent = world.transform;
+            World _world = world.GetComponent<World>();
+
             latLonNodes = nodes;
             buildXYNodes();
-            buildScaledNodes(origin, scale);
+            buildScaledNodes(_world.RootTileOrigin, _world.WorldScaleFactor);
 
             for (int i = 0; i < scaledNodes.Length - 1; i++)
             {
