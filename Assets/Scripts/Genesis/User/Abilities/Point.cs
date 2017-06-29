@@ -8,6 +8,7 @@ namespace Genesis.User.Abilities
     public class Point : MonoBehaviour
     {
         public OVRInput.Controller Controller;
+        public OVRInput.Button ClickButton;
         public LineRenderer lineRenderer;
         public enum HoverState { HOVER, NONE };
         public HoverState _hoverState = HoverState.NONE;
@@ -80,9 +81,9 @@ namespace Genesis.User.Abilities
         {
             if (_hoverState == HoverState.HOVER)
             {
-                if (OVRInput.GetDown(OVRInput.RawButton.B))
+                if (OVRInput.GetDown(ClickButton))
                 {
-                    focusObject.SendMessage("OnBClick", SendMessageOptions.DontRequireReceiver);
+                    focusObject.SendMessage("OnClick", SendMessageOptions.DontRequireReceiver);
                 }
             }
         }
