@@ -26,9 +26,6 @@ namespace Genesis.User
             {
                 toggleUI();
             }
-
-            Move();
-            Zoom();
         }
 
         private void toggleUI()
@@ -39,22 +36,6 @@ namespace Genesis.User
             } else
             {
                 genesisUIController.Close();
-            }
-        }
-
-        private void Move()
-        {
-            transform.position += rightHand.movementTrajectory * rightHand.stickInput.y * movementSpeed;
-        }
-
-        public float Zoom()
-        {
-            if (rightHand.Squeeze() && leftHand.Squeeze())
-            {
-                return rightHand.transform.position.x - leftHand.transform.position.x;
-            } else
-            {
-                return 0f;
             }
         }
     }
