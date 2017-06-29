@@ -63,7 +63,7 @@ namespace Genesis.User.Abilities
         {
             if (grabbedObject != null)
             {
-                float thumbstickScale = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick).y;
+                float thumbstickScale = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, Controller).y;
                 Vector3 scaleIncrement = new Vector3(thumbstickScale, thumbstickScale, thumbstickScale);
                 grabbedObject.transform.localScale += scaleIncrement / 100f;
             }
