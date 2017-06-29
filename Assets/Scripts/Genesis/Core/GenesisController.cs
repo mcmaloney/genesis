@@ -38,15 +38,6 @@ namespace Genesis.Core
             _UIController = GenesisUI.GetComponent<UIController>();
         }
 
-        public void Update()
-        {
-            if (currentWorld)
-            {
-                World _currentWorld = currentWorld.GetComponent<World>();
-                _currentWorld.userZoomInput = _GenesisPlayer.Zoom();
-            }
-        }
-
         public void BuildWorld(string worldName, Vector2d originCoordinates)
         {
             Debug.Log("Building world " + worldName + " at " + originCoordinates);
