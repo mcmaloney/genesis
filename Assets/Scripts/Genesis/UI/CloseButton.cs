@@ -8,7 +8,7 @@ namespace Genesis.UI
     {
         public GameObject transitionObject;
 
-        public void OnBClick()
+        public void OnClick()
         {
             transform.parent.gameObject.SetActive(false);
             transitionObject.SetActive(true);

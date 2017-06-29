@@ -30,7 +30,7 @@ namespace Genesis.UI
             switchMaterial(defaultMaterial);
         }
 
-        public void OnBClick()
+        public void OnClick()
         {
             Debug.Log("List Item Clicked");
         }

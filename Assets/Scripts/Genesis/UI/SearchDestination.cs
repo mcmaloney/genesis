@@ -13,7 +13,7 @@ namespace Genesis.UI
             Debug.Log("Hovering search destination " + destinationName);
         }
 
-        public void OnBClick()
+        public void OnClick()
         {
             // tell the search map to geocode this location's name
             SearchMap parentMap = transform.parent.gameObject.GetComponent<SearchMap>();

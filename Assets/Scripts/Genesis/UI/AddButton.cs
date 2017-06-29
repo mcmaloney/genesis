@@ -8,7 +8,7 @@ namespace Genesis.UI
     {
         public GameObject dialogObject;
 
-        public void OnBClick()
+        public void OnClick()
         {
             activateDialogObject();
         }
