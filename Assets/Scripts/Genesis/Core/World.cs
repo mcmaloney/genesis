@@ -12,6 +12,7 @@ namespace Genesis.Core
 {
     public class World : MonoBehaviour
     {
+        public GameObject Genesis;
         public MapVisualization MapVisualization;
         public GameObject FeatureRenderer; 
         public RectD ReferenceTileRect { get; set; }
@@ -22,10 +23,12 @@ namespace Genesis.Core
         public float TileSize = 100;
         public Vector2d originReferencePoint = new Vector2d(0, 0);
         public Dictionary<Vector2, UnityTile> _tiles;
+        public bool isCurrentWorld = false;
         public int grabMaskLayerNumber = 9;
 
         public TextAsset testDataSource; // Need to replace with data from API calls!
 
+        private GenesisController _Genesis;
         private List<DataSource> dataSources;
         private FeatureRenderer _FeatureRenderer;
         private Vector2 rawTileSize;
@@ -35,6 +38,7 @@ namespace Genesis.Core
 
         public void Build(Vector2d coordinates, int zoom, Vector4 frame, string name)
         {
+            _Genesis = Genesis.GetComponent<GenesisController>();
             BuildWorldRootObject(name, grabMaskLayerNumber); // Grab mask. Should make this more configurable
             BuildWorldPrimitives(OriginTileMeters(OriginDegreesToWorldMeters(coordinates, originReferencePoint), zoom), frame, zoom);
             SetWorldScale(ReferenceTileRect.Size.x);
@@ -149,6 +153,11 @@ namespace Genesis.Core
             dataSources = new List<DataSource>();
             AddDataSource(testDataSource);
             RenderDataSource(dataSources[0]);
+        }
+
+        public void Focus()
+        {
+            _Genesis.SetCurrentWorld(gameObject);
         }
     }
 }

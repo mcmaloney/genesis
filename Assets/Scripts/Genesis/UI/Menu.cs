@@ -11,13 +11,14 @@ namespace Genesis.UI
 
         public float listItemStackHeight = 0f;
 
-        public void addListItem(string labelValue)
+        public void addListItem(string labelValue, GameObject focus)
         {
             GameObject listItemObject = Instantiate(listItemPrefab, new Vector3(0f, 0f, 0f), Quaternion.Euler(-90f, 0f, 0f));
             listItemObject.transform.parent = transform;
             listItemObject.transform.localScale = new Vector3(0.25f, 1f, 0.06f);
             listItemObject.transform.localPosition = new Vector3(0, listItemVerticalMargin - listItemStackHeight, 0f);
             listItemObject.GetComponent<ListItem>().labelTextValue = labelValue;
+            listItemObject.GetComponent<ListItem>().focusObject = focus;
             listItemStackHeight += 0.75f;
         }
     }

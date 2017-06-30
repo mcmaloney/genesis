@@ -41,10 +41,17 @@ namespace Genesis.Core
             currentWorld = newWorld;
             World _newWorld = newWorld.GetComponent<World>();
             _newWorld.Build(new Vector2d(originCoordinates.y, originCoordinates.x), zoom, range, worldName);
-            _UIController.CreateListItem(worldName);
+            _UIController.CreateListItem(worldName, newWorld);
         }
 
-        private void DestroyWorld(GameObject world)
+        public void SetCurrentWorld(GameObject world)
+        {
+            currentWorld = world;
+            world.GetComponent<World>().isCurrentWorld = true;
+            Debug.Log("Current World is: " + currentWorld.name);
+        }
+
+        public void DestroyWorld(GameObject world)
         {
             Destroy(world);
         }
