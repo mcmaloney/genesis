@@ -6,6 +6,7 @@ namespace Genesis.UI
 {
     public class ListItem : MonoBehaviour
     {
+        public GameObject focusObject; // What GameObject the list item is associated with
         public GameObject labelText;
         public string labelTextValue;
         public Material defaultMaterial;
@@ -30,9 +31,9 @@ namespace Genesis.UI
             switchMaterial(defaultMaterial);
         }
 
-        public void OnBClick()
+        public void OnClick()
         {
-            Debug.Log("List Item Clicked");
+            focusObject.SendMessage("Focus", SendMessageOptions.DontRequireReceiver);
         }
 
         private void switchMaterial(Material mat)

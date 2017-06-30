@@ -40,12 +40,12 @@ namespace Genesis.UI
             WorldsSearchMap.SetActive(false);
         }
 
-        // Default to WorldsMenu for now, but should include menu option as a parameter here (GameObject argument)
-        public void CreateListItem(string listItemText)
+        // Default to creating a list item in the WorldsMenu for now, but should include menu option as a parameter here (GameObject argument)
+        public void CreateListItem(string listItemText, GameObject focus)
         {
             Debug.Log("Creating list item " + listItemText);
             Menu worldMenu = WorldsMenu.GetComponent<Menu>();
-            worldMenu.addListItem(listItemText);
+            worldMenu.addListItem(listItemText, focus);
         }
 
         public void Close()
@@ -53,11 +53,6 @@ namespace Genesis.UI
             gameObject.SetActive(false);
         }
 
-        [ContextMenu("Test Create List Item")]
-        public void TestCreateListItem()
-        {
-            CreateListItem("Test World");
-        }
     }
 }
 
